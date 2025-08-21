@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Scan to Pay Me</title>
+  <!-- Lightweight QR lib that draws into a DIV -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    body { font-family: system-ui, Arial; padding: 24px; }
+    #qrcode { width:256px; height:256px; margin-top:12px; }
+    .box { padding:16px; border:1px solid #ddd; border-radius:12px; display:inline-block; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>Scan to Pay Me</h2>
+    <div id="qrcode"></div>
+  </div>
+
+  <script>
+    // === YOUR DETAILS ===
+    const upiId = "8698690182@axl";               // <-- change
+    const name  = "Supriya Raundal";             // <-- change
+    const amount = "1";                            // e.g. "150" or "" for flexible
+    const note   = "Payment";                     // optional
+
+    const upi = `upi://pay?pa=${encodeURIComponent(upiId)}&pn=${encodeURIComponent(name)}`
+              + (amount ? `&am=${encodeURIComponent(amount)}` : "")
+              + `&tn=${encodeURIComponent(note)}&cu=INR`;
+
+    // Render QR into the DIV
+    new QRCode(document.getElementById("qrcode"), {
+      text: upi,
+      width: 256,
+      height: 256,
+      correctLevel: QRCode.CorrectLevel.M
+    });
+  </script>
+</body>
+</html>
